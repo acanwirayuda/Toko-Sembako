@@ -1,5 +1,22 @@
 <?php
 include '../config/koneksi.php';
+$cari = "";
+
+if(isset($_GET['cari'])){
+    $cari = $_GET['cari'];
+
+    $data = mysqli_query(
+        $koneksi,
+        "SELECT * FROM barang
+         WHERE nama_barang LIKE '%$cari%'"
+    );
+}
+else{
+    $data = mysqli_query(
+        $koneksi,
+        "SELECT * FROM barang"
+    );
+}
 
 $data = mysqli_query($koneksi, "SELECT * FROM barang");
 ?>
@@ -23,6 +40,32 @@ $data = mysqli_query($koneksi, "SELECT * FROM barang");
     <a href="../dashboard.php" class="btn btn-secondary mb-3">
         Kembali
     </a>
+
+    <form method="GET" class="mb-3">
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <input type="text"
+                   name="cari"
+                   class="form-control"
+                   placeholder="Cari barang..."
+                   value="<?= $cari ?>">
+
+        </div>
+
+        <div class="col-md-2">
+
+            <button class="btn btn-primary">
+                Cari
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
 
     <table class="table table-bordered">
 
@@ -66,7 +109,7 @@ $data = mysqli_query($koneksi, "SELECT * FROM barang");
                     Edit
                 </a>
 
-                <a href="hapus.php?id=<?= $row['id_barang']; ?>" class="btn btn-danger btn-sm">
+                <a href="hapus.php?id=<?= $row['id_barang']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin mau hapus barang ini?')">
                     Hapus
                 </a>
             </td>
