@@ -21,6 +21,21 @@ $stok = mysqli_fetch_assoc($data_stok);
 
 <!DOCTYPE html>
 <html>
+    <style>
+.navbar{
+    box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
+
+.navbar-brand{
+    font-weight:bold;
+    font-size:24px;
+}
+
+.btn-logout{
+    border-radius:10px;
+    padding:8px 18px;
+}
+</style>
 <head>
     <title>Dashboard Toko Sembako</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -33,12 +48,12 @@ $stok = mysqli_fetch_assoc($data_stok);
 <nav class="navbar navbar-dark bg-primary">
     <div class="container">
         <span class="navbar-brand">
-            🛒Sembako4_CN!!!
+            🛒SEMBAKO4_CN!!!
         </span>
 
-        <a href="logout.php" class="btn btn-light">
-            Logout
-        </a>
+        <a href="logout.php" class="btn btn-light btn-logout">
+    Logout
+</a>
     </div>
 </nav>
 

@@ -31,44 +31,84 @@ if(isset($_POST['simpan'])){
 
 <!DOCTYPE html>
 <html>
+    <style>
+
+body{
+    background:#f8fafc;
+}
+
+.form-card{
+    background:white;
+    border:none;
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    padding:30px;
+}
+
+.page-title{
+    font-weight:700;
+    margin-bottom:25px;
+}
+
+.form-label{
+    font-weight:600;
+}
+
+.form-control{
+    border-radius:10px;
+}
+
+.btn{
+    border-radius:10px;
+}
+
+</style>
 <head>
     <title>Tambah Barang</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
 
 <div class="container mt-4">
 
-    <h2>Menambahkan Barang</h2>
-
+    <h2 class="page-title">
+    <i class="bi bi-plus-circle"></i>
+    Tambah Barang
+</h2>
+<div class="form-card">
     <form method="POST" enctype="multipart/form-data">
 
         <div class="mb-3">
-            <label>Nama Barang</label>
+            <label class="form-label">Nama Barang</label>
             <input type="text"
-                   name="nama_barang"
-                   class="form-control"
-                   required>
+       name="nama_barang"
+       class="form-control"
+       placeholder="Masukkan nama barang"
+       required>
         </div>
 
         <div class="mb-3">
-            <label>Harga</label>
+            <label class="form-label">Harga Barang</label>
             <input type="number"
-                   name="harga"
-                   class="form-control"
-                   required>
+       name="harga"
+       class="form-control"
+       placeholder="Masukkan harga barang"
+       required>
         </div>
 
         <div class="mb-3">
-            <label>Stok</label>
+            <label class="form-label">Jumlah Stok</label>
             <input type="number"
-                   name="stok"
-                   class="form-control"
-                   required>
+       name="stok"
+       class="form-control"
+       placeholder="Masukkan jumlah stok"
+       required>
         </div>
 
         <div class="mb-3">
-            <label>Foto Barang</label>
+            <label class="form-label">Foto Barang</label>
             <input type="file"
                    name="foto"
                    class="form-control">
@@ -86,6 +126,7 @@ if(isset($_POST['simpan'])){
         </a>
 
     </form>
+    </div>
 
 </div>
 

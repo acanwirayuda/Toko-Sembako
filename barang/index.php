@@ -1,126 +1,274 @@
 <?php
 include '../config/koneksi.php';
+
 $cari = "";
 
-if(isset($_GET['cari'])){
+if(isset($_GET['cari']) && !empty($_GET['cari'])){
     $cari = $_GET['cari'];
 
     $data = mysqli_query(
         $koneksi,
         "SELECT * FROM barang
-         WHERE nama_barang LIKE '%$cari%'"
+         WHERE nama_barang LIKE '%$cari%'
+         ORDER BY id_barang DESC"
     );
 }
 else{
     $data = mysqli_query(
         $koneksi,
-        "SELECT * FROM barang"
+        "SELECT * FROM barang
+         ORDER BY id_barang DESC"
     );
 }
-
-$data = mysqli_query($koneksi, "SELECT * FROM barang");
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Data Barang</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+
+        body{
+            background:#f8fafc;
+        }
+
+        .page-title{
+            font-weight:700;
+        }
+
+        .table-card{
+            background:white;
+            border-radius:15px;
+            overflow:hidden;
+            box-shadow:0 5px 20px rgba(0,0,0,.08);
+        }
+
+        .table thead{
+            background:#0d6efd;
+            color:white;
+        }
+
+        .table td,
+        .table th{
+            vertical-align:middle;
+        }
+
+        .product-img{
+            width:70px;
+            height:70px;
+            object-fit:cover;
+            border-radius:10px;
+            border:1px solid #ddd;
+        }
+
+        .search-box{
+            background:white;
+            padding:20px;
+            border-radius:15px;
+            box-shadow:0 3px 10px rgba(0,0,0,.05);
+        }
+
+        .btn{
+            border-radius:10px;
+        }
+
+    </style>
+
 </head>
 <body>
 
 <div class="container mt-4">
 
-    <h2>Data Barang</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
-    <a href="tambah.php" class="btn btn-success mb-3">
-        + Tambah Barang
-    </a>
+        <div>
+            <h2 class="page-title">
+                <i class="bi bi-box-seam"></i>
+                Data Barang
+            </h2>
 
-    <a href="../dashboard.php" class="btn btn-secondary mb-3">
-        Kembali
-    </a>
-
-    <form method="GET" class="mb-3">
-
-    <div class="row">
-
-        <div class="col-md-4">
-
-            <input type="text"
-                   name="cari"
-                   class="form-control"
-                   placeholder="Cari barang..."
-                   value="<?= $cari ?>">
-
-        </div>
-
-        <div class="col-md-2">
-
-            <button class="btn btn-primary">
-                Cari
-            </button>
-
+            <p class="text-muted mb-0">
+                Kelola data barang toko
+            </p>
         </div>
 
     </div>
 
-</form>
+    <a href="tambah.php" class="btn btn-success mb-3">
+        <i class="bi bi-plus-circle"></i>
+        Tambah Barang
+    </a>
 
-    <table class="table table-bordered">
+    <a href="../dashboard.php" class="btn btn-secondary mb-3">
+        <i class="bi bi-arrow-left"></i>
+        Kembali
+    </a>
 
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Foto</th>
-                <th>Nama Barang</th>
-                <th>Harga</th>
-                <th>Stok</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
+    <div class="search-box mb-4">
 
-        <tbody>
+        <form method="GET">
 
-        <?php
-        $no = 1;
+            <div class="row">
 
-        while($row = mysqli_fetch_assoc($data)){
-        ?>
+                <div class="col-md-6">
 
-        <tr>
+                    <input
+                        type="text"
+                        name="cari"
+                        class="form-control"
+                        placeholder="Cari nama barang..."
+                        value="<?= $cari ?>"
+                    >
 
-            <td><?= $no++; ?></td>
+                </div>
 
-            <td>
-                <?php if(!empty($row['foto'])){ ?>
-                    <img src="../assets/upload/<?= $row['foto']; ?>" width="80">
-                <?php } ?>
-            </td>
+                <div class="col-md-2">
 
-            <td><?= $row['nama_barang']; ?></td>
+                    <button class="btn btn-primary w-100">
+                        <i class="bi bi-search"></i>
+                        Cari
+                    </button>
 
-            <td>Rp <?= number_format($row['harga']); ?></td>
+                </div>
+                <div class="col-md-2">
+                    <a href="index.php" class="btn btn-secondary w-100">
+                        <i class="bi bi-arrow-clockwise"></i>
+                        Reset
+                    </a>
+</div>
 
-            <td><?= $row['stok']; ?></td>
+            </div>
 
-            <td>
-                <a href="edit.php?id=<?= $row['id_barang']; ?>" class="btn btn-warning btn-sm">
-                    Edit
-                </a>
+        </form>
 
-                <a href="hapus.php?id=<?= $row['id_barang']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin mau hapus barang ini?')">
-                    Hapus
-                </a>
-            </td>
+    </div>
 
-        </tr>
+    <div class="table-card">
 
-        <?php } ?>
+        <table class="table table-hover mb-0">
 
-        </tbody>
+            <thead>
 
-    </table>
+                <tr>
+                    <th width="70">No</th>
+                    <th width="120">Foto</th>
+                    <th>Nama Barang</th>
+                    <th width="180">Harga</th>
+                    <th width="100">Stok</th>
+                    <th width="130">Aksi</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            <?php
+            $no = 1;
+
+            if(mysqli_num_rows($data) > 0){
+
+                while($row = mysqli_fetch_assoc($data)){
+            ?>
+
+                <tr>
+
+                    <td><?= $no++; ?></td>
+
+                    <td>
+
+                        <?php if(!empty($row['foto'])){ ?>
+
+                            <img
+                                src="../assets/upload/<?= $row['foto']; ?>"
+                                class="product-img"
+                            >
+
+                        <?php } ?>
+
+                    </td>
+
+                    <td>
+                        <strong>
+                            <?= $row['nama_barang']; ?>
+                        </strong>
+                    </td>
+
+                    <td>
+                        Rp <?= number_format($row['harga'],0,',','.'); ?>
+                    </td>
+
+                    <td>
+
+                        <?php if($row['stok'] <= 10){ ?>
+
+                            <span class="badge bg-danger">
+                                <?= $row['stok']; ?>
+                            </span>
+
+                        <?php } else { ?>
+
+                            <span class="badge bg-success">
+                                <?= $row['stok']; ?>
+                            </span>
+
+                        <?php } ?>
+
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="edit.php?id=<?= $row['id_barang']; ?>"
+                            class="btn btn-warning btn-sm"
+                            title="Edit">
+
+                            <i class="bi bi-pencil-square"></i>
+
+                        </a>
+
+                        <a
+                            href="hapus.php?id=<?= $row['id_barang']; ?>"
+                            class="btn btn-danger btn-sm"
+                            title="Hapus"
+                            onclick="return confirm('Yakin ingin menghapus barang ini?')">
+
+                            <i class="bi bi-trash"></i>
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            <?php
+                }
+            }else{
+            ?>
+
+                <tr>
+
+                    <td colspan="6" class="text-center py-4">
+
+                        <i class="bi bi-search"></i>
+                        Barang tidak ditemukan
+
+                    </td>
+
+                </tr>
+
+            <?php } ?>
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 </div>
 
