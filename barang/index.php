@@ -35,19 +35,23 @@ else{
     <style>
 
         body{
-            background:#f8fafc;
+            background:#0f172a;
         }
 
-        .page-title{
-            font-weight:700;
-        }
+        .page-title {
+    color: #fff !important;
+}
 
         .table-card{
-            background:white;
-            border-radius:15px;
-            overflow:hidden;
-            box-shadow:0 5px 20px rgba(0,0,0,.08);
-        }
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.action-card{
+    background:white;
+    border-radius:20px;
+}
 
         .table thead{
             background:#0d6efd;
@@ -88,15 +92,15 @@ else{
     <div class="d-flex justify-content-between align-items-center mb-3">
 
         <div>
-            <h2 class="page-title">
-                <i class="bi bi-box-seam"></i>
-                Data Barang
-            </h2>
+    <h2 class="page-title text-white">
+        <i class="bi bi-box-seam"></i>
+        Data Barang
+    </h2>
 
-            <p class="text-muted mb-0">
-                Kelola data barang toko
-            </p>
-        </div>
+    <p class="text-light mb-0">
+        Kelola data barang toko
+    </p>
+</div>
 
     </div>
 
@@ -232,15 +236,13 @@ else{
 
                         </a>
 
-                        <a
-                            href="hapus.php?id=<?= $row['id_barang']; ?>"
-                            class="btn btn-danger btn-sm"
-                            title="Hapus"
-                            onclick="return confirm('Yakin ingin menghapus barang ini?')">
+                       <a
+    href="hapus.php?id=<?= $row['id_barang']; ?>"
+    class="btn btn-danger btn-sm">
 
-                            <i class="bi bi-trash"></i>
+    <i class="bi bi-trash"></i>
 
-                        </a>
+</a>
 
                     </td>
 
