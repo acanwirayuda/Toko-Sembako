@@ -209,7 +209,7 @@ else{
 
                     <td>
 
-                        <?php if($row['stok'] <= 10){ ?>
+                        <?php if($row['stok'] <= 15){ ?>
 
                             <span class="badge bg-danger">
                                 <?= $row['stok']; ?>

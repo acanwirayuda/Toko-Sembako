@@ -190,7 +190,7 @@ $jumlah = mysqli_fetch_assoc($total);
 
                     <td>
 
-                        <?php if($row['stok'] <= 10){ ?>
+                        <?php if($row['stok'] <= 15){ ?>
 
                             <span class="badge bg-danger">
                                 Stok Menipis
